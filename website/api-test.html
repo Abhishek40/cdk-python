@@ -29,7 +29,6 @@
             })
             .then(data => {
                 console.log(data);
-                data.
                 // data.forEach(url_path => {
                 //     const markup = '<li>${url_path.hits}</li>';
                 //     document.querySelector('ul').insertAdjacentElement('beforeend', markup);
@@ -39,7 +38,7 @@
     </script>
 </body>
 </html> -->
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -56,6 +55,7 @@
                 return response.json();
             })
             .then(function (data) {
+                console.log(data);
                 appendData(data);
             })
             .catch(function (err) {
@@ -71,4 +71,62 @@
         }
     </script>
 </body>
+</html> -->
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>API Call and Display Data</title>
+    <script>
+        async function callAPi() {
+            let result = await fetch('https://1btbwrswn2.execute-api.eu-central-1.amazonaws.com/prod/viewerResource');
+            result = await result.json()
+            console.warn(result)
+            document.getElementById('website').innerHTML=result.map((url) => 
+                    `<tr>
+                    <td>${url.path}</td>
+                    <td>${url.hits}</td>
+                    </tr>`
+                ).join("");
+        }
+
+        callAPi();
+    </script>
+</head>
+
+<body>
+    <h1>API Call in javascript</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>URL</th>
+                <th>Hit Count</th>
+            </tr>
+        </thead>
+        <tbody id="website">
+
+        </tbody>
+    </table>
+</body>
+
+</html> -->
+<!DOCTYPE html>
+<html>
+
+<body>
+    <p class="counter">Visitors Count</p>
+    <p id="body"></p>
+    <script type="text/javascript">
+        var apiUrl = "https://1btbwrswn2.execute-api.eu-central-1.amazonaws.com/prod/viewerResource";
+        fetch(apiUrl)
+            .then(res => res.json())
+            .then(data => {
+                var count = document.getElementById('body');
+                count.innerHTML = data.hits;
+                console.log(data)
+            })
+
+    </script>
+</body>
+
 </html>

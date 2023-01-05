@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+    <!-- <p class="counter">Visitors Count</p>
+    <p id="body"></p> -->
+    <script type="text/javascript">
+        fetch("https://q7ni0e8pdc.execute-api.eu-central-1.amazonaws.com/prod/postResource", {
+            //adding method
+            method: "POST",
+            //adding body to send
+            body: JSON.stringify({
+                path:"https://1btbwrswn2.execute-api.eu-central-1.amazonaws.com/prod/viewerResource"
+            }),
+            //Adding Headers
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        })
+        .then(res => res.json())
+        .then(json => console.log(json));
+
+    </script>
+</body>
+
+</html>

@@ -125,3 +125,41 @@ class StaticWebsiteStack(Stack):
                 )
             ]
         )
+        #POST API configuration
+        post_api = _apigw.RestApi(
+            self,
+            'APIGatewayPostTable',
+            rest_api_name='APIGatewayPostTable'
+        )
+        post_entity = post_api.root.add_resource(
+            'postResource',
+            default_cors_preflight_options=_apigw.CorsOptions(
+                allow_methods=['POST', 'OPTIONS'],
+                allow_origins=_apigw.Cors.ALL_ORIGINS
+            )
+        )
+        #API Gateway and Lambda integration
+        post_lambda_integration = _apigw.LambdaIntegration(
+            my_lambda,
+            proxy=False,
+            integration_responses=[
+                _apigw.IntegrationResponse(
+                    status_code="200",
+                    response_parameters={
+                        'method.response.header.Access-Control-Allow-Origin': "'*'"
+                    }
+                )
+            ]
+        )
+        post_entity.add_method(
+            'POST',
+            post_lambda_integration,
+            method_responses=[
+                _apigw.MethodResponse(
+                    status_code="200",
+                    response_parameters={
+                        'method.response.header.Access-Control-Allow-Origin': True
+                    }
+                )
+            ]
+        )
